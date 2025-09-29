@@ -1,0 +1,220 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Question Extractor - Usage Guide</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            max-width: 800px;
+            margin: 0 auto;
+            padding: 20px;
+            line-height: 1.6;
+        }
+        .code-block {
+            background-color: #f4f4f4;
+            border: 1px solid #ddd;
+            border-radius: 4px;
+            padding: 15px;
+            margin: 10px 0;
+            overflow-x: auto;
+        }
+        .console-output {
+            background-color: #1e1e1e;
+            color: #d4d4d4;
+            padding: 15px;
+            border-radius: 4px;
+            margin: 10px 0;
+            font-family: 'Courier New', monospace;
+        }
+        .step {
+            margin: 20px 0;
+            padding: 15px;
+            border-left: 4px solid #007acc;
+            background-color: #f9f9f9;
+        }
+        .warning {
+            background-color: #fff3cd;
+            border: 1px solid #ffeaa7;
+            color: #856404;
+            padding: 10px;
+            border-radius: 4px;
+            margin: 10px 0;
+        }
+        .success {
+            background-color: #d4edda;
+            border: 1px solid #c3e6cb;
+            color: #155724;
+            padding: 10px;
+            border-radius: 4px;
+            margin: 10px 0;
+        }
+    </style>
+</head>
+<body>
+    <h1>🎯 Question Extractor Module - Usage Guide</h1>
+    
+    <div class="success">
+        <strong>✅ File Updated:</strong> <code>questionExtractor.js</code> đã được cập nhật với Google Gemini AI integration!
+    </div>
+
+    <h2>📝 Mô tả</h2>
+    <p>Module này sẽ tự động hook vào function <code>displayQuestionText</code> trong <code>gamePlayer.js</code>, extract dữ liệu câu hỏi + đáp án, gộp thành 1 biến duy nhất, và gửi đến Google Gemini AI để lấy câu trả lời thông minh.</p>
+
+    <h2>🆕 Tính năng mới</h2>
+    <ul>
+        <li>✅ <strong>Gộp dữ liệu:</strong> Câu hỏi và đáp án được gộp thành 1 biến <code>combinedText</code></li>
+        <li>🤖 <strong>Google Gemini AI:</strong> Tự động call API để lấy câu trả lời thông minh</li>
+        <li>🔑 <strong>API Key built-in:</strong> API key được khai báo trực tiếp trong file</li>
+        <li>📊 <strong>Enhanced logging:</strong> Console output chi tiết hơn</li>
+    </ul>
+
+    <h2>🚀 Cách sử dụng</h2>
+    
+    <div class="step">
+        <h3>⚠️ Bước 0: Cấu hình API Key</h3>
+        <p>Trước khi sử dụng, cần thay thế API key trong file <code>questionExtractor.js</code>:</p>
+        <div class="code-block">
+// Tìm dòng này trong file questionExtractor.js:
+var GEMINI_API_KEY = 'AIzaSyDH8vQF2K3lJ9xRm5tA7bC8eN1oP6qS4uV'; 
+
+// Thay thế bằng API key thật của bạn từ Google AI Studio
+var GEMINI_API_KEY = 'YOUR_ACTUAL_GEMINI_API_KEY_HERE';
+        </div>
+        <p><strong>Lấy API key tại:</strong> <a href="https://makersuite.google.com/app/apikey" target="_blank">Google AI Studio</a></p>
+    </div>
+    <div class="step">
+        <h3>Bước 1: Thêm script vào quiz.html</h3>
+        <p>Thêm dòng sau vào file <code>quiz.html</code>, sau thẻ script của <code>gamePlayer.js</code>:</p>
+        <div class="code-block">
+&lt;script src="questionExtractor.js"&gt;&lt;/script&gt;
+        </div>
+    </div>
+
+    <div class="step">
+        <h3>Bước 2: Script sẽ tự động hoạt động</h3>
+        <p>Module sẽ tự động:</p>
+        <ul>
+            <li>Tìm và hook vào <code>questionAnswerModule.displayQuestionText</code></li>
+            <li>Sau mỗi lần hiển thị câu hỏi, sẽ extract và gộp dữ liệu</li>
+            <li>🤖 Gửi câu hỏi đến Google Gemini AI để lấy câu trả lời</li>
+            <li>In kết quả ra console</li>
+        </ul>
+    </div>
+
+    <h2>📊 Kết quả trong Console</h2>
+    <p>Khi có câu hỏi mới, bạn sẽ thấy output như này trong browser console:</p>
+    
+    <div class="console-output">
+=== QUESTION DATA EXTRACTED ===<br>
+📝 Combined Question Data:<br>
+Question: Which of the following banks is known for its partnership with One Mount and focuses on digital banking solutions in Vietnam?<br><br>
+Answer options:<br>
+A. Techcombank<br>
+B. Vietcombank<br>
+C. BIDV<br>
+D. Sacombank<br>
+================================<br><br>
+🤖 Calling Google Gemini API...<br>
+📤 Prompt sent to Gemini: [Question content with analysis request]<br>
+✅ Gemini API Response received<br><br>
+=== GEMINI AI ANALYSIS ===<br>
+🤖 Gemini Response: Answer: A - Techcombank is known for its partnership with One Mount and focus on digital banking solutions in Vietnam. The bank has been actively developing digital services and fintech partnerships.<br>
+==========================
+    </div>
+
+    <h2>🛠️ API Commands (Debug)</h2>
+    <p>Bạn có thể sử dụng các command sau trong browser console để debug:</p>
+    
+    <div class="code-block">
+// Kiểm tra xem đã hook thành công chưa
+questionExtractor.isHooked()
+
+// Extract dữ liệu ngay lập tức (manual)
+questionExtractor.extractNow()
+
+// Extract chỉ câu hỏi
+questionExtractor.extractQuestionText()
+
+// Extract chỉ đáp án
+questionExtractor.extractAnswers()
+
+// Gộp câu hỏi và đáp án thành 1 biến
+questionExtractor.combineQuestionData()
+
+// Test Gemini API với câu hỏi mẫu
+questionExtractor.testGeminiAPI()
+
+// Test Gemini API với câu hỏi tùy chỉnh
+questionExtractor.testGeminiAPI("Your question here?\\nA. Option 1\\nB. Option 2")
+
+// Gọi Gemini API trực tiếp
+questionExtractor.callGeminiAPI({combinedText: "Your question"})
+
+// Unhook khỏi displayQuestionText
+questionExtractor.unhook()
+
+// Hook lại
+questionExtractor.hook()
+    </div>
+
+    <h2>⚙️ Cách hoạt động</h2>
+    <ol>
+        <li><strong>Auto-detection:</strong> Script tự động tìm <code>questionAnswerModule</code></li>
+        <li><strong>Function hooking:</strong> Override <code>displayQuestionText</code> để thêm logic extract</li>
+        <li><strong>DOM extraction:</strong> Sau khi DOM được update, extract dữ liệu từ:
+            <ul>
+                <li><code>[wa-id="questionDetails__Text"]</code> - Câu hỏi</li>
+                <li><code>#questionDetails__Answers .answerButton</code> - Đáp án</li>
+            </ul>
+        </li>
+        <li><strong>Data combination:</strong> Gộp câu hỏi và đáp án thành 1 biến <code>combinedText</code></li>
+        <li><strong>Gemini API call:</strong> Gửi dữ liệu đến Google Gemini AI để phân tích</li>
+        <li><strong>Console logging:</strong> In ra console với format dễ đọc + kết quả AI</li>
+    </ol>
+
+    <div class="warning">
+        <strong>⚠️ Lưu ý:</strong>
+        <ul>
+            <li>Script cần được load sau <code>gamePlayer.js</code></li>
+            <li>Có delay 100ms để đảm bảo DOM được update hoàn toàn</li>
+            <li>Script sẽ timeout sau 10 giây nếu không tìm thấy module</li>
+        </ul>
+    </div>
+
+    <h2>🔍 Troubleshooting</h2>
+    
+    <h3>Nếu không thấy output trong console:</h3>
+    <ol>
+        <li>Kiểm tra script đã được load: <code>typeof questionExtractor !== 'undefined'</code></li>
+        <li>Kiểm tra đã hook thành công: <code>questionExtractor.isHooked()</code></li>
+        <li>Thử extract manual: <code>questionExtractor.extractNow()</code></li>
+        <li>Kiểm tra console có lỗi không</li>
+    </ol>
+
+    <h3>Nếu gặp lỗi:</h3>
+    <div class="code-block">
+// Check xem các element có tồn tại không
+document.querySelector('[wa-id="questionDetails__Text"]')
+document.getElementById('questionDetails__Answers')
+
+// Check module có tồn tại không  
+typeof questionAnswerModule !== 'undefined'
+typeof questionAnswerModule.displayQuestionText === 'function'
+    </div>
+
+    <h2>📁 File Structure</h2>
+    <div class="code-block">
+e:\TCB\Wepro\
+├── gamePlayer.js          (existing)
+├── quiz.html             (existing) 
+├── questionExtractor.js  (new - your script)
+└── usage-guide.html      (new - this file)
+    </div>
+
+    <div class="success">
+        <strong>🎉 Hoàn thành!</strong> Script đã sẵn sàng sử dụng. Chỉ cần thêm vào quiz.html và test thôi!
+    </div>
+</body>
+</html>
