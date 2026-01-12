@@ -7,7 +7,7 @@ var questionExtractorModule = (function () {
   'use strict';
 
   // Google Gemini API Configuration
-  var GEMINI_API_KEY = 'AIzaSyD8wZKIr7rWzdCG3fmJ7zwkgX89Zb4KhKM'; // Replace with your actual API key
+  var GEMINI_API_KEY = ''; // Replace with your actual API key
   var GEMINI_API_URL = 'https://generativelanguage.googleapis.com/v1beta/models/gemini-2.5-flash:generateContent';
 
   // Store original displayQuestionText function
